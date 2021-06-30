@@ -1,29 +1,43 @@
 import { useEffect, useState, useCallback } from 'react';
 import SWService from '../service/SWService'
+import {Container} from 'react-bootstrap'
+import { Character } from '../components/Character/Character';
 
 export const ChooseHeroes = () => {
 
 	const SW = new SWService();
 
-	const [pageHeroes, setPageHeroes] = useState({current:1, nextPage:null, prevPage:null});
+	const startPage = 1;
+	
+	const [page, setPage] = useState({current:startPage, nextPage:null, prevPage:null});
+	const [loading, setLoading] = useState(true);
 	const [listHeroes, setListHeroes] = useState([]);
-
-	const fetchMyAPI = async () => {
-    	let response = await SW.getAllCharacters();
-    	setPageHeroes({nextPage:response.next, prevPage:response.previouse})
-		setListHeroes(response)
-		console.log(listHeroes)
-  	}
-
 	
-	fetchMyAPI()
-  	
+	useEffect(() => {
+    	const fetchData = async (page) => {
+			let response = await SW.getAllCharacters(page);
+			setListHeroes(response.results);
+			console.log(response)
+			return response;
+		}
 
-	
+		fetchData(startPage)
+		//console.log(listHeroes)
+  	}, [])
+
+	useEffect(() => {
+		getChars(listHeroes);
+	},[listHeroes])
+
+	const getChars = (arr) => {
+		console.log(arr)
+	}
 
 	return (
 		<div>
-			ChooseHeroes
+			<Container className="mt-4">
+				
+			</Container>
 		</div>
 	)
 }
