@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState} from 'react';
 import SWService from '../service/SWService'
 import {Container} from 'react-bootstrap'
 import { Character } from '../components/Character/Character';
@@ -17,7 +17,7 @@ export const ChooseHeroes = () => {
     	const fetchData = async (page) => {
 			let response = await SW.getAllCharacters(page);
 			setListHeroes(response.results);
-			console.log(response)
+			//console.log(response)
 			return response;
 		}
 
@@ -31,13 +31,20 @@ export const ChooseHeroes = () => {
 
 	const getChars = (arr) => {
 		console.log(arr)
+		if(!arr || arr.length === 0 || arr === undefined){
+			return 'Загрузка данных';
+		}else{
+			return arr.map((item,i) => {
+
+			})
+		}
 	}
 
 	return (
-		<div>
+
 			<Container className="mt-4">
-				
+				{getChars()}
 			</Container>
-		</div>
+
 	)
 }
