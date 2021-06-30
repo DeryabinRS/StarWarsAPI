@@ -11,12 +11,12 @@ export default class SWService{
     return await res.json();
   }
 
-  getAllCharacters(str) {
-     return this.getResourse(`people/?search=${str}`)
+  getAllCharacters(page = 1) {
+     return this.getResourse(`people/?page=${page}`)
   }
 
-  getCharacter(id){
-    return this.getResourse(`people/${id}`)
+  getCharacter(str){
+    return this.getResourse(`people/?search=${str}`)
   }
 
 }

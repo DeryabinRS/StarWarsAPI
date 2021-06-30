@@ -5,7 +5,7 @@ export const TopMenu = () => {
     return(
       
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home"><img src="./swlogo_min.png"/></Navbar.Brand>
+            <Navbar.Brand href="#home"><img src="./swlogo_min.png" alt="STAR WARS"/></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
