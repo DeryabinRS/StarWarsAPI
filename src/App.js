@@ -1,7 +1,6 @@
 import './App.css';
 import { TopMenu } from './components/TopMenu/TopMenu';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -9,12 +8,12 @@ import {
 function App() {
   return (
     <div className="App">
-      <Router>  
+
         <TopMenu/>
         <main>
         {/* <Switch> рендерит первый <Route>, совпавший с URL */}
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             345
           </Route>
           <Route path="/favorite">
@@ -22,7 +21,7 @@ function App() {
           </Route>
         </Switch>
         </main>
-      </Router>
+
     </div>
   );
 }
