@@ -1,3 +1,4 @@
+import './App.css';
 import { TopMenu } from './components/TopMenu/TopMenu';
 import { Switch, Route } from 'react-router-dom';
 import {ChooseHeroes} from './pages/ChooseHeroes'
