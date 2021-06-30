@@ -1,9 +1,8 @@
 import './App.css';
 import { TopMenu } from './components/TopMenu/TopMenu';
-import {
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import {ChooseHeroes} from './pages/ChooseHeroes'
+import {FavoriteHeroes} from './pages/FavoriteHeroes'
 
 function App() {
   return (
@@ -11,14 +10,9 @@ function App() {
 
         <TopMenu/>
         <main>
-        {/* <Switch> рендерит первый <Route>, совпавший с URL */}
         <Switch>
-          <Route exact path="/">
-            345
-          </Route>
-          <Route path="/favorite">
-            123
-          </Route>
+          <Route exact path="/" component={ChooseHeroes}/>
+          <Route path="/favorite" component={FavoriteHeroes}/>
         </Switch>
         </main>
 

@@ -5,12 +5,12 @@ export const TopMenu = () => {
     return(
       
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href="#home"><img src="./swlogo_min.png"/></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
-                <Link to="/" className="nav-link"><a>Сhoose heroes</a></Link>
-                <Link to="/favorite" className="nav-link"><a>Favorite heroes</a></Link>
+                <Link to="/" className="nav-link">Сhoose heroes</Link>
+                <Link to="/favorite" className="nav-link">Favorite heroes</Link>
             </Nav>
             </Navbar.Collapse>
         </Navbar>
