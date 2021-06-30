@@ -16,34 +16,40 @@ export const ChooseHeroes = () => {
 	useEffect(() => {
     	const fetchData = async (page) => {
 			let response = await SW.getAllCharacters(page);
+			setPage({
+				current:page,
+				nextPage:response.next,
+				prevPage:response.reviouse
+			})
 			setListHeroes(response.results);
-			//console.log(response)
 			return response;
 		}
 
 		fetchData(startPage)
-		//console.log(listHeroes)
   	}, [])
 
 	useEffect(() => {
-		getChars(listHeroes);
+		//getChars(listHeroes);
+		//console.log(page)
 	},[listHeroes])
 
-	const getChars = (arr) => {
-		console.log(arr)
-		if(!arr || arr.length === 0 || arr === undefined){
-			return 'Загрузка данных';
-		}else{
-			return arr.map((item,i) => {
+	// let getChars = (arr) => {
+	// 	console.log(arr)
+	// 	if(!arr || arr.length === 0 || arr === undefined){
+	// 		return 'Загрузка данных';
+	// 	}else{
+	// 		return arr.map((item,i) => {
 
-			})
-		}
-	}
+	// 		})
+	// 	}
+	// }
 
 	return (
 
 			<Container className="mt-4">
-				{getChars()}
+				{listHeroes.map((item, i) => {
+					return <Character key={i} data={item}/>
+				})}
 			</Container>
 
 	)

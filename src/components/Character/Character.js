@@ -1,9 +1,11 @@
 import styles from './Character.module.css'
 
-export const Character = ({...props}) => {
+export const Character = ({data}) => {
+	//const {data} = props; 
+	console.log(data)
 	return(
 		<div className={styles.Character}>
-			<div></div>
+			<div>{data.name}</div>
 		</div>
 	)
 };
