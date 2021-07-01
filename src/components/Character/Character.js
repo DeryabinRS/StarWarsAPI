@@ -19,19 +19,43 @@ export const Character = ({data}) => {
 		}))
 
 		const arrCharsLS = JSON.parse(localStorage.getItem('chars'));
+		let newArrChars = [];
 		if(arrCharsLS && arrCharsLS.length !== 0){
-			arrCharsLS.map((item, i) => {
-				if(item.id === data.id){
-					if(!data.choosed){
+
+			if(data.choosed){
+				arrCharsLS.forEach((item, i) => {
+					if(item.id === data.id){
 						arrCharsLS.splice(i,1);
 					}
-				}else{
-					arrCharsLS.push(charData);
-				}
-			})
+				})
+			}else{
+				arrCharsLS.forEach((item, i) => {
+					if(item.id !== data.id){
+						arrCharsLS.push(charData)
+					}
+				})
+				
+			}
+
+			
 			localStorage.setItem('chars', JSON.stringify(arrCharsLS));
+			// arrCharsLS.forEach((item, i) => {
+			// 	if(item.id === data.id){
+			// 		console.log(1)
+			// 		if(data.choosed){
+			// 			arrCharsLS.splice(i,1);
+			// 		}else{
+			// 			console.log(2)
+			// 			arrCharsLS.push(charData);
+			// 		}
+			// 	}else{
+			// 		console.log(3)
+			// 		arrCharsLS.push(charData);
+			// 	}
+			// })
+			// localStorage.setItem('chars', JSON.stringify(newArrChars));
 		}else{
-			let newArrChars = [];
+			console.log(charData)
 			newArrChars.push(charData)
 			localStorage.setItem('chars', JSON.stringify(newArrChars))
 		}
