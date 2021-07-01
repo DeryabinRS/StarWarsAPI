@@ -25,33 +25,38 @@ export const ChooseHeroes = () => {
 		})
 		
 		setListHeroes(setNewParam(response.results));
-		
 		return response;
+	}
+
+	const getLSCoosedChar = (urlId) => {
+		const arrCharsLS = JSON.parse(localStorage.getItem('chars'));
+		let choosed = false;
+		if(arrCharsLS && arrCharsLS.length !== 0){
+			arrCharsLS.forEach(item => {
+				if(item.id === urlId){
+					choosed = true;
+				}
+			})
+		}
+		return choosed;
 	}
 
 	const setNewParam = (data) => {
 		const newData = data.map(item => {
-			const choosed = false;
-			if (localStorage.hasOwnProperty('chars')) {
-				const arrChars = JSON.parse(localStorage.getItem('chars'));
-				arrChars.forEach(el => {
-					
-				});
-			}
-
 			const urlId = item.url.match(/(\d+)/);
 			const urlIMG = `https://starwars-visualguide.com/assets/img/characters/${urlId[0]}.jpg`;
 			item.id = urlId[0];
 			item.img = urlIMG;
-			item.choosed = false;
+			item.choosed = getLSCoosedChar(urlId[0]);
 			return item;
 		});
-		console.log(newData)
+		//console.log(newData)
 		return newData;
 	}
 
 	useEffect(() => {
 		fetchData(page.current);
+		
   	}, [])
 	
 	const onClickPageHandler = (num) => {
