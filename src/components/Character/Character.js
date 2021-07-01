@@ -14,12 +14,26 @@ export const Character = ({data}) => {
 		const arrNewChoose = [];
 		const arrCharsLS = JSON.parse(localStorage.getItem('chars'));
 		if(arrCharsLS && arrCharsLS.length > 0){
-			//localStorage.setItem('chars', JSON.stringify([charData]));
-			console.log(1)
+			for(let i = 0; i < arrCharsLS.length; i++){
+				if(arrCharsLS[i].id === charData.id){
+					if(!charData.choosed){
+						arrCharsLS.splice(i,1);
+						localStorage.setItem('chars', JSON.stringify(arrCharsLS));
+						break;
+					}
+				}else{
+					if(charData.choosed){
+						arrCharsLS.push(charData);
+						localStorage.setItem('chars', JSON.stringify(arrCharsLS));
+						break;
+					}
+				}
+			}
 		}else{
-			localStorage.setItem('chars', JSON.stringify([]));
+			//localStorage.setItem('chars', JSON.stringify([]));
 			if(charData.choosed){
-
+				arrCharsLS.push(charData);
+				localStorage.setItem('chars', JSON.stringify(arrCharsLS));
 			}
 		}
 	},[charData])

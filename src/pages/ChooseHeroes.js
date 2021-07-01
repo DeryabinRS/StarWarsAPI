@@ -47,7 +47,7 @@ export const ChooseHeroes = () => {
 			const urlIMG = `https://starwars-visualguide.com/assets/img/characters/${urlId[0]}.jpg`;
 			item.id = urlId[0];
 			item.img = urlIMG;
-			item.choosed = getLSCoosedChar(urlId[0]);
+			item.choosed = false//getLSCoosedChar(urlId[0]);
 			return item;
 		});
 		//console.log(newData)
