@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react';
 export const Character = ({data}) => {
 
 	const [charData, setCharData] = useState(data)
-	
-	useEffect(() => {
-		
-	},[charData])
+	let [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('chars')||'[]'));
 
+	useEffect(() => {
+		const funct = ()=>{
+			setFavorites(JSON.parse(localStorage.getItem('chars')||'[]'));
+		};
+	},[])
+//https://coderoad.ru/61126374/%D0%9A%D0%B0%D0%BA-%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D1%82%D1%8C-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82-%D0%B8%D0%B7-%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0-%D1%85%D1%80%D0%B0%D0%BD%D1%8F%D1%89%D0%B5%D0%B3%D0%BE%D1%81%D1%8F-%D0%B2-localstorage-%D0%B5%D1%81%D0%BB%D0%B8-%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82-%D1%83%D0%B6%D0%B5
 	const onChooseChar = () => {
 		setCharData(prevState => ({
 			...prevState, 
