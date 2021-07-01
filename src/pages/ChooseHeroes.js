@@ -21,28 +21,63 @@ export const ChooseHeroes = () => {
 		setPage({
 			current:page,
 			nextPage:response.next,
-			prevPage:response.reviouse
+			prevPage:response.previous
 		})
-		setListHeroes(response.results);
+		
+		setListHeroes(setNewParam(response.results));
+		
 		return response;
+	}
+
+	const setNewParam = (data) => {
+		const newData = data.map(item => {
+			const choosed = false;
+			if (localStorage.hasOwnProperty('chars')) {
+				const arrChars = JSON.parse(localStorage.getItem('chars'));
+				arrChars.forEach(el => {
+					
+				});
+			}
+
+			const urlId = item.url.match(/(\d+)/);
+			const urlIMG = `https://starwars-visualguide.com/assets/img/characters/${urlId[0]}.jpg`;
+			item.id = urlId[0];
+			item.img = urlIMG;
+			item.choosed = false;
+			return item;
+		});
+		console.log(newData)
+		return newData;
 	}
 
 	useEffect(() => {
 		fetchData(page.current);
   	}, [])
+	
+	const onClickPageHandler = (num) => {
+		fetchData(num);
+		//console.log(page)
+	}  
+
+	const Pagination = () => {
+		return(
+			<div className="text-center mt-2 mb-2">
+					{page.prevPage ? <Button onClick={() => onClickPageHandler(page.current - 1)} variant="light">Prev</Button>: ''}
+					{page.nextPage ? <Button onClick={() => onClickPageHandler(page.current + 1)} variant="light">Next</Button>: ''}
+			</div>
+		)
+	}
 
 	return (
 
 			<Container className="mt-4">
+				{Pagination()}
 				<div className={styles.chars_block}>
 				{listHeroes.map((item, i) => {
 					return <Character key={i} data={item}/>
 				})}
 				</div>
-				<div className="text-center">
-					{page.prevPage ? <Button onClick={() => setPage(page.current - 1)} variant="light">Prev</Button>: ''}
-					{page.nextPage ? <Button onClick={() => setPage(page.current + 1)} variant="light">Next</Button>: ''}
-				</div>
+				{Pagination()}
 			</Container>
 
 	)
