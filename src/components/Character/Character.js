@@ -1,22 +1,8 @@
-import { Card , Button} from 'react-bootstrap';
+import { Card} from 'react-bootstrap';
 import styles from './Character.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react';
-//import SWService from '../../service/SWService'
+import { ChooseBtn } from './ChooseBtn/ChooseBtn';
 
-export const Character = ({data, onChooseChar}) => {
-
-	//const SW = new SWService();
-	//const initialLS = localStorage.getItem("chars");
-	const [charData, setCharData] = useState(data)
-
-
-	const chooseButton = () => {
-		return(
-			<Button block onClick={() => onChooseChar(charData)} variant="light">Choose hero <FontAwesomeIcon className={charData.choosed ? styles.choosed: ''} icon={faHeart} /></Button>
-		)
-	}
+export const Character = ({data, onChooseChar, del}) => {
 
 	return(
 		<Card className={styles.character}>
@@ -26,7 +12,7 @@ export const Character = ({data, onChooseChar}) => {
 				<Card.Text>
 
 				</Card.Text>
-				{chooseButton()}
+				<ChooseBtn data={data} onChooseChar={onChooseChar} del={del}/>
 			</Card.Body>
 		</Card>
 	)

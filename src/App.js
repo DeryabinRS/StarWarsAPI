@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import {ChooseHeroes} from './pages/ChooseHeroes'
 import {FavoriteHeroes} from './pages/FavoriteHeroes'
 
-
+document.body.style.backgroundColor = "black";
 function App() {
   return (
     <div className="App">

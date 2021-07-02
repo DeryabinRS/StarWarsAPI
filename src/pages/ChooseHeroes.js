@@ -15,17 +15,20 @@ export const ChooseHeroes = () => {
 	const [page, setPage] = useState({current:startPage, nextPage:null, prevPage:null});
 	const [loading, setLoading] = useState(true);
 	const [listHeroes, setListHeroes] = useState([]);
-
 	const [charsLS, setCharsLS] = useState(
-	JSON.parse(localStorage.getItem('chars')) || []
+		JSON.parse(localStorage.getItem('chars')) || []
 	)
+
+	useEffect(() => {
+		fetchData(page.current);
+  	}, [])
 
 	useEffect(() => {
 		localStorage.setItem("chars", JSON.stringify(charsLS));
   	}, [charsLS]);
 
 	const onChooseChar = (charData) => {
-		console.log(charData);
+		//console.log(charData);
 		if(!charData.choosed){
 			setCharsLS(() => [...charsLS, charData]);
 		}else{
@@ -39,7 +42,7 @@ export const ChooseHeroes = () => {
 			return item;
 		})
 		setListHeroes(newListHeroes);
-		console.log(listHeroes);
+		//console.log(listHeroes);
 	}
 
 	const fetchData = async (page) => {
@@ -80,15 +83,11 @@ export const ChooseHeroes = () => {
 		//console.log(newData)
 		return newData;
 	}
-
-	useEffect(() => {
-		fetchData(page.current);
-  	}, [])
 	
 	const onClickPageHandler = (num) => {
 		setLoading(true);
 		fetchData(num);
-		console.log(page)
+		//console.log(page)
 	}  
 
 	const Pagination = () => {
@@ -106,7 +105,7 @@ export const ChooseHeroes = () => {
 		)
 	}else{
 	return (
-
+		<div className={styles.page}>
 			<Container className="mt-4">
 				{Pagination()}
 				<div className={styles.chars_block}>
@@ -116,7 +115,7 @@ export const ChooseHeroes = () => {
 				</div>
 				{Pagination()}
 			</Container>
-
+		</div>
 	)
 			}
 }
