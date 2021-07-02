@@ -1,7 +1,8 @@
+import { Container } from 'react-bootstrap'
 export const FavoriteHeroes = () => {
 	return (
-		<div>
+		<Container className="mt-4">
 			FavoriveHeroes
-		</div>
+		</Container>
 	)
 }
