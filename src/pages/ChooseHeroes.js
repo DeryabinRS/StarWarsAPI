@@ -15,7 +15,23 @@ export const ChooseHeroes = () => {
 	const [page, setPage] = useState({current:startPage, nextPage:null, prevPage:null});
 	const [loading, setLoading] = useState(true);
 	const [listHeroes, setListHeroes] = useState([]);
-	
+
+	const [charsLS, setCharsLS] = useState(
+	JSON.parse(localStorage.getItem('chars')) || []
+	)
+
+	useEffect(() => {
+		localStorage.setItem("chars", JSON.stringify(charsLS));
+  	}, [charsLS]);
+
+	const onChooseChar = (charData) => {
+		
+		console.log(charData);
+		let newLS = [];
+		if(!charData.choosed){
+			setCharsLS(() => [...charsLS, charData]);
+		}
+	}
 
 	const fetchData = async (page) => {
 		let response = await SW.getAllCharacters(page);
@@ -74,7 +90,7 @@ export const ChooseHeroes = () => {
 				{Pagination()}
 				<div className={styles.chars_block}>
 				{listHeroes.map((item, i) => {
-					return <Character key={i} data={item}/>
+					return <Character key={i} data={item} onChooseChar={onChooseChar}/>
 				})}
 				</div>
 				{Pagination()}

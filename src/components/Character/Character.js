@@ -5,31 +5,16 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react';
 //import SWService from '../../service/SWService'
 
-export const Character = ({data}) => {
+export const Character = ({data, onChooseChar}) => {
 
 	//const SW = new SWService();
-
+	//const initialLS = localStorage.getItem("chars");
 	const [charData, setCharData] = useState(data)
 
-	useEffect(() => {
-
-	},[charData])
-
-	// async function getHome(home) {
-	// 	const homeworld = await SW.getAllCharacters(home);
-	// 	return homeworld;
-	// }
-
-	const onChooseChar = () => {
-		setCharData(prevState => ({
-			...prevState, 
-			choosed: !prevState.choosed
-		}))
-	}
 
 	const chooseButton = () => {
 		return(
-			<Button block onClick={onChooseChar} variant="light">Choose hero <FontAwesomeIcon className={charData.choosed ? styles.choosed: ''} icon={faHeart} /></Button>
+			<Button block onClick={() => onChooseChar(charData)} variant="light">Choose hero <FontAwesomeIcon className={charData.choosed ? styles.choosed: ''} icon={faHeart} /></Button>
 		)
 	}
 
