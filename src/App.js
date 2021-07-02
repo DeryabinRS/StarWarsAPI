@@ -6,9 +6,6 @@ import {FavoriteHeroes} from './pages/FavoriteHeroes'
 
 
 function App() {
-
-  
-
   return (
     <div className="App">
 

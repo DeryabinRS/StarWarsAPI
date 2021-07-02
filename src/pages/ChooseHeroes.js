@@ -4,6 +4,7 @@ import {Container} from 'react-bootstrap'
 import { Character } from '../components/Character/Character';
 import styles from './Pages.module.css'
 import { Button } from 'react-bootstrap';
+import { Loader } from '../components/Loader/Loader';
 
 export const ChooseHeroes = () => {
 
@@ -25,24 +26,12 @@ export const ChooseHeroes = () => {
 		})
 		
 		setListHeroes(setNewParam(response.results));
+		setLoading(false);
 		return response;
 	}
 
-	const getLSCoosedChar = (urlId) => {
-		const arrCharsLS = JSON.parse(localStorage.getItem('chars'));
-		let choosed = false;
-		if(arrCharsLS && arrCharsLS.length !== 0){
-			arrCharsLS.forEach(item => {
-				if(item.id === urlId){
-					choosed = true;
-				}
-			})
-		}
-		return choosed;
-	}
-
 	const setNewParam = (data) => {
-		const newData = data.map(item => {
+		const newData = data.map((item) => {
 			const urlId = item.url.match(/(\d+)/);
 			const urlIMG = `https://starwars-visualguide.com/assets/img/characters/${urlId[0]}.jpg`;
 			item.id = urlId[0];
@@ -60,19 +49,25 @@ export const ChooseHeroes = () => {
   	}, [])
 	
 	const onClickPageHandler = (num) => {
+		setLoading(true);
 		fetchData(num);
-		//console.log(page)
+		console.log(page)
 	}  
 
 	const Pagination = () => {
 		return(
-			<div className="text-center mt-2 mb-2">
-					{page.prevPage ? <Button onClick={() => onClickPageHandler(page.current - 1)} variant="light">Prev</Button>: ''}
+			<div className="text-center mt-2 pb-3">
+					{page.prevPage ? <Button className="mr-1" onClick={() => onClickPageHandler(page.current - 1)} variant="light">Prev</Button>: ''}
 					{page.nextPage ? <Button onClick={() => onClickPageHandler(page.current + 1)} variant="light">Next</Button>: ''}
 			</div>
 		)
 	}
 
+	if(loading){
+		return(
+			<Loader/>
+		)
+	}else{
 	return (
 
 			<Container className="mt-4">
@@ -86,4 +81,5 @@ export const ChooseHeroes = () => {
 			</Container>
 
 	)
+			}
 }
