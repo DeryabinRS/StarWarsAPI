@@ -25,12 +25,21 @@ export const ChooseHeroes = () => {
   	}, [charsLS]);
 
 	const onChooseChar = (charData) => {
-		
 		console.log(charData);
-		let newLS = [];
 		if(!charData.choosed){
 			setCharsLS(() => [...charsLS, charData]);
+		}else{
+			const newCharLS = charsLS.filter(item => item.id !== charData.id);
+			setCharsLS(newCharLS);
 		}
+		const newListHeroes = listHeroes.map(item => {
+			if(item.id === charData.id){
+				item.choosed = !charData.choosed;
+			}
+			return item;
+		})
+		setListHeroes(newListHeroes);
+		console.log(listHeroes);
 	}
 
 	const fetchData = async (page) => {
@@ -46,13 +55,26 @@ export const ChooseHeroes = () => {
 		return response;
 	}
 
+	const getLSCoosedChar = (urlId) => {
+		const arrCharsLS = JSON.parse(localStorage.getItem('chars'));
+		let choosed = false;
+		if(arrCharsLS && arrCharsLS.length !== 0){
+			arrCharsLS.forEach(item => {
+				if(item.id === urlId){
+					choosed = true;
+				}
+			})
+		}
+		return choosed;
+	}
+
 	const setNewParam = (data) => {
 		const newData = data.map((item) => {
 			const urlId = item.url.match(/(\d+)/);
 			const urlIMG = `https://starwars-visualguide.com/assets/img/characters/${urlId[0]}.jpg`;
 			item.id = urlId[0];
 			item.img = urlIMG;
-			item.choosed = false//getLSCoosedChar(urlId[0]);
+			item.choosed = getLSCoosedChar(urlId[0]);
 			return item;
 		});
 		//console.log(newData)
@@ -61,7 +83,6 @@ export const ChooseHeroes = () => {
 
 	useEffect(() => {
 		fetchData(page.current);
-		
   	}, [])
 	
 	const onClickPageHandler = (num) => {
