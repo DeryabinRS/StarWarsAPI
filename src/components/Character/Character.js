@@ -13,7 +13,11 @@ export const Character = ({data, onChooseChar, del}) => {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		HomeWorld(data.homeworld);
+		let mounted = true;
+		if(mounted){
+			HomeWorld(data.homeworld);
+		}
+		return () => mounted = false;
 	},[])// eslint-disable-line react-hooks/exhaustive-deps
 
 	const HomeWorld = async (url) => {

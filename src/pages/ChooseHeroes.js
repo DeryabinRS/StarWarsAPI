@@ -15,6 +15,7 @@ export const ChooseHeroes = () => {
 	const [page, setPage] = useState({current:startPage, nextPage:null, prevPage:null});
 	const [loading, setLoading] = useState(true);
 	const [listHeroes, setListHeroes] = useState([]);
+
 	const [charsLS, setCharsLS] = useState(
 		JSON.parse(localStorage.getItem('chars')) || []
 	)
