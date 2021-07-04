@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons'

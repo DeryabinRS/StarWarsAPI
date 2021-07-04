@@ -21,14 +21,13 @@ export const ChooseHeroes = () => {
 
 	useEffect(() => {
 		fetchData(page.current);
-  	}, [])
+  	}, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		localStorage.setItem("chars", JSON.stringify(charsLS));
   	}, [charsLS]);
 
 	const onChooseChar = (charData) => {
-		//console.log(charData);
 		if(!charData.choosed){
 			setCharsLS(() => [...charsLS, charData]);
 		}else{
@@ -104,18 +103,18 @@ export const ChooseHeroes = () => {
 			<Loader/>
 		)
 	}else{
-	return (
-		<div className={styles.page}>
-			<Container className="mt-4">
-				{Pagination()}
-				<div className={styles.chars_block}>
-				{listHeroes.map((item, i) => {
-					return <Character key={i} data={item} onChooseChar={onChooseChar}/>
-				})}
-				</div>
-				{Pagination()}
-			</Container>
-		</div>
-	)
-			}
+		return (
+			<div className={styles.page}>
+				<Container className="mt-4">
+					{Pagination()}
+					<div className={styles.chars_block}>
+					{listHeroes.map((item, i) => {
+						return <Character key={i} data={item} onChooseChar={onChooseChar}/>
+					})}
+					</div>
+					{Pagination()}
+				</Container>
+			</div>
+		)
+	}
 }

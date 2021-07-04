@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Character } from '../components/Character/Character';
@@ -8,6 +9,11 @@ export const FavoriteHeroes = () => {
 	const [charsLS, setCharsLS] = useState(
 		JSON.parse(localStorage.getItem('chars')) || []
 	);
+	const [gender, setGender] = useState('All');
+
+	useEffect(() => {
+		console.log(gender)
+	},[gender])
 
 	useEffect(() => {
 		localStorage.setItem("chars", JSON.stringify(charsLS));
@@ -23,6 +29,9 @@ export const FavoriteHeroes = () => {
 	if(charsLS.length > 0){
 		return (
 			<Container className="mt-4">
+				<Button variant="light" onClick={() => setGender('All')} className="mr-2 mb-3">All</Button>
+				<Button variant="light" onClick={() => setGender('Male')} className="mr-2 mb-3">Male</Button>
+				<Button variant="light" onClick={() => setGender('Female')} className="mr-2 mb-3">Female</Button>
 				<div className={styles.chars_block}>
 					{charsLS.map((item, i) => {
 						return <Character key={i} data={item} del={true} onChooseChar={delFavoriteHeroes}/>
