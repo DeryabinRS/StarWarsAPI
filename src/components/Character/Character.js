@@ -4,7 +4,7 @@ import styles from './Character.module.css'
 import { ChooseBtn } from './ChooseBtn/ChooseBtn';
 import SWService from '../../service/SWService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { faGlobe, faMarsStroke } from '@fortawesome/free-solid-svg-icons'
 
 export const Character = ({data, onChooseChar, del}) => {
 	const SW = new SWService();
@@ -28,10 +28,11 @@ export const Character = ({data, onChooseChar, del}) => {
 				<Card.Title>{data.name}</Card.Title>
 				<Card.Text>
 					{loading ? (
-						<><FontAwesomeIcon icon={faGlobe} spin/> Loading</>
+						<span><FontAwesomeIcon icon={faGlobe} spin/> Loading</span>
 					) : (
-						<><FontAwesomeIcon icon={faGlobe} /> {home.name}</>
+						<span><FontAwesomeIcon icon={faGlobe} /> {home.name}</span>
 					)}
+					<br/><FontAwesomeIcon icon={faMarsStroke} /> {data.gender}
 				</Card.Text>
 				<ChooseBtn data={data} onChooseChar={onChooseChar} del={del}/>
 			</Card.Body>

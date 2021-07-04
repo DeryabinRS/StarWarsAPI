@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { ButtonGroup, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { Character } from '../components/Character/Character';
@@ -12,10 +12,6 @@ export const FavoriteHeroes = () => {
 	const [gender, setGender] = useState('All');
 
 	useEffect(() => {
-		console.log(gender)
-	},[gender])
-
-	useEffect(() => {
 		localStorage.setItem("chars", JSON.stringify(charsLS));
   	}, [charsLS]);
 
@@ -26,16 +22,26 @@ export const FavoriteHeroes = () => {
 		}
 	}
 
+	const onHandlerGender = (val) => {
+		const g = val.props.data.gender;
+		if(g === gender || gender === 'All') return val;
+	}
+
 	if(charsLS.length > 0){
 		return (
 			<Container className="mt-4">
-				<Button variant="light" onClick={() => setGender('All')} className="mr-2 mb-3">All</Button>
-				<Button variant="light" onClick={() => setGender('Male')} className="mr-2 mb-3">Male</Button>
-				<Button variant="light" onClick={() => setGender('Female')} className="mr-2 mb-3">Female</Button>
+				<ButtonGroup aria-label="Basic example" className="mb-3">
+					<Button variant="secondary" onClick={() => setGender('All')}>All</Button>
+					<Button variant="secondary" onClick={() => setGender('male')}>Male</Button>
+					<Button variant="secondary" onClick={() => setGender('female')}>Female</Button>
+					<Button variant="secondary" onClick={() => setGender('n/a')}>n/a</Button>
+				</ButtonGroup>
 				<div className={styles.chars_block}>
-					{charsLS.map((item, i) => {
+					{
+					charsLS.map((item, i) => {
 						return <Character key={i} data={item} del={true} onChooseChar={delFavoriteHeroes}/>
-					})}
+					}).filter(onHandlerGender)
+					}
 				</div>
 			</Container>
 		)
