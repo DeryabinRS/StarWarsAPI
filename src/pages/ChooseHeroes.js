@@ -3,7 +3,7 @@ import SWService from '../service/SWService'
 import {Container} from 'react-bootstrap'
 import { Character } from '../components/Character/Character';
 import styles from './Pages.module.css'
-import { Button } from 'react-bootstrap';
+import { Button, Form, FormControl } from 'react-bootstrap';
 import { Loader } from '../components/Loader/Loader';
 
 export const ChooseHeroes = () => {
@@ -25,7 +25,7 @@ export const ChooseHeroes = () => {
 
 	useEffect(() => {
 		localStorage.setItem("chars", JSON.stringify(charsLS));
-  	}, [charsLS]);
+  	}, [charsLS]); 
 
 	const onChooseChar = (charData) => {
 		if(!charData.choosed){
@@ -42,6 +42,13 @@ export const ChooseHeroes = () => {
 		})
 		setListHeroes(newListHeroes);
 		//console.log(listHeroes);
+	}
+
+	const fetchDataSearch = async (str) => {
+		const response = await SW.getCharacter(str);
+		setListHeroes(setNewParam(response.results));
+		setLoading(false);
+		return response;
 	}
 
 	const fetchData = async (page) => {
@@ -89,6 +96,14 @@ export const ChooseHeroes = () => {
 		//console.log(page)
 	}  
 
+	const searchHandler = (val) => {
+		if(val !== ''){
+			fetchDataSearch(val);
+		}else{
+			fetchData(page.current);
+		}
+	}
+
 	const Pagination = () => {
 		return(
 			<div className="text-center mt-2 pb-3">
@@ -106,6 +121,9 @@ export const ChooseHeroes = () => {
 		return (
 			<div className={styles.page}>
 				<Container className="mt-4">
+					<Form inline>
+						<FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={(e) => searchHandler(e.target.value)} />
+					</Form>
 					{Pagination()}
 					<div className={styles.chars_block}>
 					{listHeroes.map((item, i) => {
